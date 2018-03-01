@@ -1,0 +1,235 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/ballot/ &mdash; api.votizen.com 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="api.votizen.com 1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ballot">
+<h1>/ballot/<a class="headerlink" href="#ballot" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This API provides the ballot (races and candidates) for upcoming elections that a voter registered at a given postal address would be able to vote in.</p>
+</div>
+<div class="section" id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="resource-url">
+<h3>Resource URL<a class="headerlink" href="#resource-url" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://api.votizen.com/v1/ballot/">https://api.votizen.com/v1/ballot/</a></p>
+</div>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="required">
+<h4>Required<a class="headerlink" href="#required" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>api_key</strong></td>
+<td>Votizen-issued api key for your account</td>
+</tr>
+</tbody>
+</table>
+<p>The postal address must be CASS-certified and broken into the fields below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>street</strong></td>
+<td>Street field of the postal address</td>
+</tr>
+<tr class="row-even"><td><strong>city</strong></td>
+<td>City field of the postal address</td>
+</tr>
+<tr class="row-odd"><td><strong>state</strong></td>
+<td>State field of the postal address</td>
+</tr>
+<tr class="row-even"><td><strong>zip</strong></td>
+<td>Zipcode field of the postal address</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="example-queries">
+<h3>Example Queries<a class="headerlink" href="#example-queries" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><dl class="first docutils">
+<dt>Query for ‘123 Main Street, Arlington, VA 22207’:</dt>
+<dd><p class="first last"><a class="reference external" href="https://api.votizen.com/v1/ballot/?api_key=abcd1234&amp;street=123+Main+Street&amp;city=Arlington&amp;state=VA&amp;zip=22207">https://api.votizen.com/v1/ballot/?api_key=abcd1234&amp;street=123+Main+Street&amp;city=Arlington&amp;state=VA&amp;zip=22207</a></p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="responses">
+<h2>Responses<a class="headerlink" href="#responses" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="response-format">
+<h3>Response Format<a class="headerlink" href="#response-format" title="Permalink to this headline">¶</a></h3>
+<p>Responses are in JSON, as nested data about races and candidates for each race.</p>
+<p>‘id’ fields refer to Votizen’s canonical identification for that record, and can be used for querying other Votizen APIs.</p>
+<p>Note: The API currently returns only data pertaining to the November 6, 2012 general election. However, the response format was designed to allow for the return of ballots for multiple election days in cases when that data is available.</p>
+<div class="section" id="response">
+<h4>200 Response<a class="headerlink" href="#response" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><pre>{
+   "races": [
+        {
+            "id": 23,
+            "election_date": "2012-11-06",
+            "office": {
+                "id": 38,
+                "name": "US Senate",
+           }
+           "district": {
+                "id": "42",
+                "name": "the State of California",
+                "state": "CA"
+           },
+           "candidates": [
+               {
+                   "id": 55,
+                   "first_name": "Dianne",
+                   "last_name": "Feinstein",
+                   "party": "Democrat"
+               },
+               {
+                   "id": 56,
+                   "first_name": "Elizabeth",
+                   "last_name": "Emken",
+                   "party": "Republican"
+               }
+           ]
+       }
+   ]
+}</pre>
+</div>
+</div>
+<div class="section" id="non-200-response">
+<h4>Non-200 Response<a class="headerlink" href="#non-200-response" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+   <span class="s">&quot;message&quot;</span><span class="p">:</span> <span class="s">&quot;string reason&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="previous-versions">
+<h2>Previous Versions<a class="headerlink" href="#previous-versions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>v1: released August 2012, current version</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/ballot/</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#resource-url">Resource URL</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li><a class="reference internal" href="#required">Required</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-queries">Example Queries</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#responses">Responses</a><ul>
+<li><a class="reference internal" href="#response-format">Response Format</a><ul>
+<li><a class="reference internal" href="#response">200 Response</a></li>
+<li><a class="reference internal" href="#non-200-response">Non-200 Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#previous-versions">Previous Versions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/ballot.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, votizen.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

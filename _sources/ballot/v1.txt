@@ -1,0 +1,97 @@
+========
+/ballot/
+========
+
+.. include:: /ballot/header.rst
+
+
+Requests
+========
+
+Resource URL
+------------
+
+https://api.votizen.com/v1/ballot/
+
+Parameters
+----------
+
+Required
+^^^^^^^^
+===========     =======================================
+**api_key**     Votizen-issued api key for your account
+===========     =======================================
+
+The postal address must be CASS-certified and broken into the fields below:
+
+==========      ===================================
+**street**      Street field of the postal address
+**city**        City field of the postal address
+**state**       State field of the postal address
+**zip**         Zipcode field of the postal address
+==========      ===================================
+
+
+Example Queries
+---------------
+
+* Query for ‘123 Main Street, Arlington, VA 22207’:
+    https://api.votizen.com/v1/ballot/?api_key=abcd1234&street=123+Main+Street&city=Arlington&state=VA&zip=22207
+
+
+Responses
+=========
+
+Response Format
+---------------
+
+Responses are in JSON, as nested data about races and candidates for each race.
+
+‘id’ fields refer to Votizen’s canonical identification for that record, and can be used for querying other Votizen APIs.
+
+Note: The API currently returns only data pertaining to the November 6, 2012 general election. However, the response format was designed to allow for the return of ballots for multiple election days in cases when that data is available.
+
+200 Response
+^^^^^^^^^^^^
+::
+
+    {
+       "races": [
+            {
+                "id": 23,
+                "election_date": "2012-11-06",
+                "office": {
+                    "id": 38,
+                    "name": "US Senate",
+               }
+               "district": {
+                    "id": "42",
+                    "name": "the State of California",
+                    "state": "CA"
+               },
+               "candidates": [
+                   {
+                       "id": 55,
+                       "first_name": "Dianne",
+                       "last_name": "Feinstein",
+                       "party": "Democrat"
+                   },
+                   {   
+                       "id": 56,
+                       "first_name": "Elizabeth",
+                       "last_name": "Emken",
+                       "party": "Republican"
+                   }
+               ]
+           }
+       ]
+    }
+
+Non-200 Response
+^^^^^^^^^^^^^^^^
+::
+
+    {
+       "message": "string reason"
+    }
+

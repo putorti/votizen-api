@@ -1,0 +1,11 @@
+.. Include the page for the current version.
+
+.. include:: ballot/v1.rst
+
+
+.. Include information about previous versions.
+
+Previous Versions
+=================
+
+* v1: released August 2012, current version

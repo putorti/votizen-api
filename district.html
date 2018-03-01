@@ -1,0 +1,194 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/district/ &mdash; api.votizen.com 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="api.votizen.com 1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="district">
+<h1>/district/<a class="headerlink" href="#district" title="Permalink to this headline">¶</a></h1>
+<p>Return a list of districts for the given location and precision.</p>
+<div class="section" id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="resource-url">
+<h3>Resource URL<a class="headerlink" href="#resource-url" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://api.votizen.com/v1/district/">https://api.votizen.com/v1/district/</a></p>
+</div>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="required">
+<h4>Required<a class="headerlink" href="#required" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>lat</strong></td>
+<td>latitude</td>
+</tr>
+<tr class="row-even"><td><strong>lon</strong></td>
+<td>longitude</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="optional">
+<h4>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>precision</strong></td>
+<td>One of: state, city, point, (default city)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="example-queries">
+<h3>Example Queries<a class="headerlink" href="#example-queries" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Query for a location in <a class="reference external" href="https://maps.google.com/maps?q=40.002371935876475,-82.99072265625&amp;hl=en&amp;ll=40.002372,-82.990723&amp;spn=0.140963,0.181789&amp;sll=37.7577,-122.4376&amp;sspn=0.290977,0.363579&amp;t=m&amp;z=13">northern Columbus, OH</a> at the default (city) precision: <a class="reference external" href="http://api.votizen.com/v1/ballot/?api_key=abcd1234&amp;lon=-82.9907226&amp;lat=40.00237">http://api.votizen.com/v1/ballot/?api_key=abcd1234&amp;lon=-82.9907226&amp;lat=40.00237</a></li>
+<li>Query for the same location in <a class="reference external" href="https://maps.google.com/maps?q=40.002371935876475,-82.99072265625&amp;hl=en&amp;ll=40.002372,-82.990723&amp;spn=0.140963,0.181789&amp;sll=37.7577,-122.4376&amp;sspn=0.290977,0.363579&amp;t=m&amp;z=13">northern Columbus, OH</a> at point precision: <a class="reference external" href="http://api.votizen.com/v1/ballot/?api_key=abcd1234&amp;lon=-82.9907226&amp;lat=40.00237&amp;precision=point">http://api.votizen.com/v1/ballot/?api_key=abcd1234&amp;lon=-82.9907226&amp;lat=40.00237&amp;precision=point</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="responses">
+<h2>Responses<a class="headerlink" href="#responses" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="response-format">
+<h3>Response Format<a class="headerlink" href="#response-format" title="Permalink to this headline">¶</a></h3>
+<p>Responses are in JSON, and contain a list of districts which contain the given location.  With point precision, all districts are returned.  With lower precisions, only districts which wholly contain the possible location are returned.</p>
+<div class="section" id="response">
+<h4>200 Response<a class="headerlink" href="#response" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;districts&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="s">&quot;406&quot;</span><span class="p">,</span>
+            <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;Congressional District 3&quot;</span><span class="p">,</span>
+            <span class="s">&quot;state&quot;</span><span class="p">:</span> <span class="s">&quot;OH&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="non-200-response">
+<h4>Non-200 Response<a class="headerlink" href="#non-200-response" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+   <span class="s">&quot;message&quot;</span><span class="p">:</span> <span class="s">&quot;string reason&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/district/</a><ul>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#resource-url">Resource URL</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li><a class="reference internal" href="#required">Required</a></li>
+<li><a class="reference internal" href="#optional">Optional</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-queries">Example Queries</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#responses">Responses</a><ul>
+<li><a class="reference internal" href="#response-format">Response Format</a><ul>
+<li><a class="reference internal" href="#response">200 Response</a></li>
+<li><a class="reference internal" href="#non-200-response">Non-200 Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/district.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, votizen.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

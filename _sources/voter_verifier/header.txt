@@ -1,0 +1,5 @@
+Overview
+========
+
+This API attempts to match name, postal, and birthday information to a voter 
+roll record.

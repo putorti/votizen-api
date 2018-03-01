@@ -1,0 +1,4 @@
+Overview
+========
+
+This API provides the ballot (races and candidates) for upcoming elections that a voter registered at a given postal address would be able to vote in.

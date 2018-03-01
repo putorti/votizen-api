@@ -1,0 +1,71 @@
+==========
+/district/
+==========
+
+Return a list of districts for the given location and precision.
+
+Requests
+========
+
+Resource URL
+------------
+
+https://api.votizen.com/v1/district/
+
+Parameters
+----------
+
+Required
+^^^^^^^^
+
+=============   ============================================
+**lat**         latitude
+**lon**         longitude
+=============   ============================================
+
+Optional
+^^^^^^^^
+
+=============   ============================================
+**precision**   One of: state, city, point, (default city)
+=============   ============================================
+
+Example Queries
+---------------
+
+* Query for a location in `northern Columbus, OH`_ at the default (city) precision: http://api.votizen.com/v1/ballot/?api_key=abcd1234&lon=-82.9907226&lat=40.00237
+* Query for the same location in `northern Columbus, OH`_ at point precision: http://api.votizen.com/v1/ballot/?api_key=abcd1234&lon=-82.9907226&lat=40.00237&precision=point
+
+.. _`northern Columbus, OH`:  https://maps.google.com/maps?q=40.002371935876475,-82.99072265625&hl=en&ll=40.002372,-82.990723&spn=0.140963,0.181789&sll=37.7577,-122.4376&sspn=0.290977,0.363579&t=m&z=13
+
+Responses
+=========
+
+Response Format
+---------------
+
+Responses are in JSON, and contain a list of districts which contain the given location.  With point precision, all districts are returned.  With lower precisions, only districts which wholly contain the possible location are returned.
+
+
+200 Response
+^^^^^^^^^^^^
+::
+
+    {
+        "districts": [
+            {
+                "id": "406",
+                "name": "Congressional District 3",
+                "state": "OH"
+            }
+        ]
+    }
+
+Non-200 Response
+^^^^^^^^^^^^^^^^
+::
+
+    {
+       "message": "string reason"
+    }
+

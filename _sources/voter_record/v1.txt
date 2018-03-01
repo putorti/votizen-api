@@ -1,0 +1,91 @@
+===================
+/voter/{id}/record/
+===================
+
+.. include:: /voter_record/header.rst
+
+
+Requests
+========
+
+Resource URL
+------------
+
+https://api.votizen.com/v1/voter/{id}/record/
+
+Parameters
+----------
+
+Required
+^^^^^^^^
+===========     ==========================================================================
+**api_key**     Votizen-issued api key for your account
+**id**          the Votizen-assigned ID for the voter whose information you are requesting
+===========     ==========================================================================
+
+
+Example Queries
+---------------
+
+* Query for voter with ID '9876':
+    https://api.votizen.com/v1/voter/9876/record/?api_key=abcd1234
+
+
+Responses
+=========
+
+Response Format
+---------------
+
+Responses are in JSON.
+
+200 Response
+^^^^^^^^^^^^
+::
+
+    {
+      "party": "Democrat",
+      "voting_history": [
+        {
+          "date": "2008-02-05",
+          "voted": True
+        },
+        {
+          "date": "2008-11-04",
+          "voted": True
+        },
+        {
+          "date": "2010-06-08",
+          "voted": False
+        },
+        {
+          "date": "2010-11-02",
+          "voted": True
+        }
+      ]
+    }
+
++-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **party**               | The voter's party.                                                                                                                                      |
++-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **voting_history**      | A list of elections and whether or not the voter participated. Only elections reported by the registrar are included. Elections are identified by date. |
++-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Non-200 Response
+^^^^^^^^^^^^^^^^
+::
+
+    {
+       "message": "string reason",
+    }
+
+HTTP Response Codes
+-------------------
+
+=======     =========================   ===========================================================================================================================================================
+**200**     **OK**                      Request successful
+**400**     **Bad Request**             Your request has missing or invalid sections. The body of the response will have an ‘error’ field that  will provide more information about the problem.
+**401**     **Unauthorized**            Your API key is missing or invalid
+**403**     **Forbidden**               Your rate limit has been exceeded. Contact support@votizen.com to increase your rate limit.
+**500**     **Internal Server Error**   An unexpected error occurred during the processing of your request. These responses should be rare. Please let support@votizen.com know if you receive any.
+=======     =========================   ===========================================================================================================================================================

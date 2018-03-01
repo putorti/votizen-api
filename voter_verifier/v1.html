@@ -1,0 +1,350 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>/voter/ &mdash; api.votizen.com 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="api.votizen.com 1 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="voter">
+<h1>/voter/<a class="headerlink" href="#voter" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This API attempts to match name, postal, and birthday information to a voter
+roll record.</p>
+</div>
+<div class="section" id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="resource-url">
+<h3>Resource URL<a class="headerlink" href="#resource-url" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://api.votizen.com/v1/voter/">https://api.votizen.com/v1/voter/</a></p>
+</div>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="required">
+<h4>Required<a class="headerlink" href="#required" title="Permalink to this headline">¶</a></h4>
+<p>The only API-enforced required parameter is the api_key, but the more
+identifying fields provided the more likely it is that we will be able to
+successfully match your user to a voter record.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>api_key</strong></td>
+<td>Votizen-issued api key for your account</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="optional">
+<h4>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="name">
+<h5>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>first_name</strong></td>
+<td>The user’s legal first name</td>
+</tr>
+<tr class="row-even"><td><strong>middle_name</strong></td>
+<td>The user’s legal middle name</td>
+</tr>
+<tr class="row-odd"><td><strong>last_name</strong></td>
+<td>The user’s legal last name</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="address">
+<h5>Address<a class="headerlink" href="#address" title="Permalink to this headline">¶</a></h5>
+<p>The postal address must be CASS-certified and broken into the fields below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>street</strong></td>
+<td>Street field of the postal address</td>
+</tr>
+<tr class="row-even"><td><strong>city</strong></td>
+<td>City field of the postal address</td>
+</tr>
+<tr class="row-odd"><td><strong>state</strong></td>
+<td>State field of the postal address</td>
+</tr>
+<tr class="row-even"><td><strong>zip</strong></td>
+<td>Zipcode field of the postal address</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="birthday">
+<h5>Birthday<a class="headerlink" href="#birthday" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>dob_year</strong></td>
+<td>The user’s birth year</td>
+</tr>
+<tr class="row-even"><td><strong>dob_month</strong></td>
+<td>The user’s birth month as an integer (1-12)</td>
+</tr>
+<tr class="row-odd"><td><strong>dob_day</strong></td>
+<td>The day of the month of the user’s birthday (1-31)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="example-queries">
+<h3>Example Queries<a class="headerlink" href="#example-queries" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><dl class="first docutils">
+<dt>Query for ‘John Doe Smith’ at ‘123 Main Street, Arlington, VA 22207’ with birthday 7/4/1976:</dt>
+<dd><p class="first last"><a class="reference external" href="https://api.votizen.com/v1/voter/?api_key=abcd1234&amp;first_name=John&amp;middle_name=Doe&amp;last_name=Smith&amp;street=123+Main+Street&amp;city=Arlington&amp;state=VA&amp;zip=22207&amp;dob_year=1976&amp;dob_month=7&amp;dob_day=4">https://api.votizen.com/v1/voter/?api_key=abcd1234&amp;first_name=John&amp;middle_name=Doe&amp;last_name=Smith&amp;street=123+Main+Street&amp;city=Arlington&amp;state=VA&amp;zip=22207&amp;dob_year=1976&amp;dob_month=7&amp;dob_day=4</a></p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Request for the Voter with Votizen-assigned ID 12345:</dt>
+<dd><p class="first last"><a class="reference external" href="https://api.votizen.com/v1/voter/12345/?api_key=abcd1234">https://api.votizen.com/v1/voter/12345/?api_key=abcd1234</a></p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="responses">
+<h2>Responses<a class="headerlink" href="#responses" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="response-format">
+<h3>Response Format<a class="headerlink" href="#response-format" title="Permalink to this headline">¶</a></h3>
+<p>Responses are in JSON.</p>
+<div class="section" id="response-record">
+<h4>200 Response - Record<a class="headerlink" href="#response-record" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="mi">12345</span><span class="p">,</span>
+    <span class="s">&quot;resource_uri&quot;</span><span class="p">:</span> <span class="s">&quot;/v1/voter/12345/&quot;</span><span class="p">,</span>
+    <span class="s">&quot;is_registered_voter&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s">&quot;voter_data_uris&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;voter_record_uri&quot;</span><span class="p">:</span> <span class="s">&quot;/v1/voter/12345/record/&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>id</strong></td>
+<td>Votizen-assigned Voter ID your user was matched to.  You can use this ID to query our other voter resources.</td>
+</tr>
+<tr class="row-even"><td><strong>resource_uri</strong></td>
+<td>The uri for this record.</td>
+</tr>
+<tr class="row-odd"><td><strong>is_registered_voter</strong></td>
+<td><p class="first">Boolean indicator of whether or not we were able to confidently match the parameters provided in your query to a voter roll record</p>
+<p class="last">possible values: True, False</p>
+</td>
+</tr>
+<tr class="row-even"><td><strong>voter_data_uris</strong></td>
+<td>Links to this Voter&#8217;s record in our other voter resources.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="response-search">
+<h4>200 Response - Search<a class="headerlink" href="#response-search" title="Permalink to this headline">¶</a></h4>
+<p>The search result consists of a &#8216;meta&#8217; field (which you can ignore for this
+resource because we&#8217;ll only return zero or one voter instances in search
+results) and an &#8216;objects&#8217; field containing the Voter record (if any) that
+matched your query.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s">&quot;next&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+        <span class="s">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s">&quot;previous&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+        <span class="s">&quot;total_count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="mi">12345</span><span class="p">,</span>
+            <span class="s">&quot;resource_uri&quot;</span><span class="p">:</span> <span class="s">&quot;/v1/voter/12345/&quot;</span><span class="p">,</span>
+            <span class="s">&quot;is_registered_voter&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+            <span class="s">&quot;voter_data_uris&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;voter_record_uri&quot;</span><span class="p">:</span> <span class="s">&quot;/v1/voter/12345/record/&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="non-200-response">
+<h4>Non-200 Response<a class="headerlink" href="#non-200-response" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;message&quot;</span><span class="p">:</span> <span class="s">&quot;string reason&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="http-response-codes">
+<h3>HTTP Response Codes<a class="headerlink" href="#http-response-codes" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="13%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>200</strong></td>
+<td><strong>OK</strong></td>
+<td>Request successful</td>
+</tr>
+<tr class="row-even"><td><strong>400</strong></td>
+<td><strong>Bad Request</strong></td>
+<td>Your request has missing or invalid sections. The body of the response will have an ‘error’ field that  will provide more information about the problem.</td>
+</tr>
+<tr class="row-odd"><td><strong>401</strong></td>
+<td><strong>Unauthorized</strong></td>
+<td>Your API key is missing or invalid</td>
+</tr>
+<tr class="row-even"><td><strong>403</strong></td>
+<td><strong>Forbidden</strong></td>
+<td>Your rate limit has been exceeded. Contact <a class="reference external" href="mailto:support&#37;&#52;&#48;votizen&#46;com">support<span>&#64;</span>votizen<span>&#46;</span>com</a> to increase your rate limit.</td>
+</tr>
+<tr class="row-odd"><td><strong>500</strong></td>
+<td><strong>Internal Server Error</strong></td>
+<td>An unexpected error occurred during the processing of your request. These responses should be rare. Please let <a class="reference external" href="mailto:support&#37;&#52;&#48;votizen&#46;com">support<span>&#64;</span>votizen<span>&#46;</span>com</a> know if you receive any.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">/voter/</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#requests">Requests</a><ul>
+<li><a class="reference internal" href="#resource-url">Resource URL</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li><a class="reference internal" href="#required">Required</a></li>
+<li><a class="reference internal" href="#optional">Optional</a><ul>
+<li><a class="reference internal" href="#name">Name</a></li>
+<li><a class="reference internal" href="#address">Address</a></li>
+<li><a class="reference internal" href="#birthday">Birthday</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-queries">Example Queries</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#responses">Responses</a><ul>
+<li><a class="reference internal" href="#response-format">Response Format</a><ul>
+<li><a class="reference internal" href="#response-record">200 Response - Record</a></li>
+<li><a class="reference internal" href="#response-search">200 Response - Search</a></li>
+<li><a class="reference internal" href="#non-200-response">Non-200 Response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#http-response-codes">HTTP Response Codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/voter_verifier/v1.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, votizen.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

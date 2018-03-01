@@ -1,0 +1,361 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; api.votizen.com 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="api.votizen.com 1 documentation" href="index.html" />
+    <link rel="next" title="APIs" href="apis.html" />
+    <link rel="prev" title="Votizen API Documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="apis.html" title="APIs"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Votizen API Documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="constructing-urls">
+<h2>Constructing URLs<a class="headerlink" href="#constructing-urls" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-url">
+<h3>Base URL<a class="headerlink" href="#base-url" title="Permalink to this headline">¶</a></h3>
+<p>All URLs referenced in this documentation have the following base:</p>
+<blockquote>
+<div><a class="reference external" href="https://api.votizen.com/v1/">https://api.votizen.com/v1/</a></div></blockquote>
+<p>We currently support only the HTTPS protocol.</p>
+</div>
+<div class="section" id="resource-naming">
+<h3>Resource Naming<a class="headerlink" href="#resource-naming" title="Permalink to this headline">¶</a></h3>
+<p>The Votizen APIs are based on REST principles.  Resource lookups are generalized
+to a URI format that attempts to conform to the following conventions:</p>
+<ul class="simple">
+<li>Path variables encode hierarchy (such as: voters/california/sacramento/)</li>
+<li>Punctuation is used to avoid implying hierarchy where none exists (such as:
+voters/geocode/lat,lon)</li>
+<li>Query strings are used to conduct searches (such as:
+voters/search?last_name=washington&amp;dob_year=1976&amp;state=virginia)</li>
+</ul>
+</div>
+<div class="section" id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h3>
+<p>Access to the APIs is controlled with the use of API keys.  Your
+Votizen-assigned API key will be provided in each of your requests via the
+api_key parameter.</p>
+</div>
+</div>
+<div class="section" id="request-response-format">
+<h2>Request/Response Format<a class="headerlink" href="#request-response-format" title="Permalink to this headline">¶</a></h2>
+<p>Requests are made via standard HTTP methods: GET, POST, PUT, and DELETE.  All
+responses are returned as standard JSON objects.</p>
+<div class="section" id="retrieving-resources-with-the-http-get-method">
+<h3>Retrieving Resources with the HTTP GET Method<a class="headerlink" href="#retrieving-resources-with-the-http-get-method" title="Permalink to this headline">¶</a></h3>
+<p>Resource representations can be retrieved by GETing its URL.  This will return a
+response code as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>200 OK</td>
+<td>Request was successful.</td>
+</tr>
+<tr class="row-odd"><td>302 FOUND</td>
+<td>Redirect response.</td>
+</tr>
+<tr class="row-even"><td>304 NOT MODIFIED</td>
+<td>Cached representation is up to date.</td>
+</tr>
+<tr class="row-odd"><td>400 BAD REQUEST</td>
+<td>General request error.</td>
+</tr>
+<tr class="row-even"><td>401 UNAUTHORIZED</td>
+<td>Credentials were insufficient.</td>
+</tr>
+<tr class="row-odd"><td>403 FORBIDDEN</td>
+<td>Rate limit exceeded.</td>
+</tr>
+<tr class="row-even"><td>404 NOT FOUND</td>
+<td>Resource not available at this URI.</td>
+</tr>
+<tr class="row-odd"><td>500 SERVER ERROR</td>
+<td>Internal Server Error.</td>
+</tr>
+<tr class="row-even"><td>503 SERVICE UNAVAILABLE</td>
+<td>Temporary server issue.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="creating-updating-resources-with-the-http-post-and-put-methods">
+<h3>Creating/Updating Resources with the HTTP POST and PUT Methods<a class="headerlink" href="#creating-updating-resources-with-the-http-post-and-put-methods" title="Permalink to this headline">¶</a></h3>
+<p>When available, resource representations may be created or updated via a POST or
+PUT to a specified resource URL.  This will return a response code as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>200 OK</td>
+<td>Request was successful and resource updated.</td>
+</tr>
+<tr class="row-odd"><td>201 CREATED</td>
+<td>Request was successful and resource created.</td>
+</tr>
+<tr class="row-even"><td>400 BAD REQUEST</td>
+<td>The data submitted failed validation.</td>
+</tr>
+<tr class="row-odd"><td>401 UNAUTHORIZED</td>
+<td>Credentials were insufficient.</td>
+</tr>
+<tr class="row-even"><td>403 FORBIDDEN</td>
+<td>Rate limit exceeded.</td>
+</tr>
+<tr class="row-odd"><td>404 NOT FOUND</td>
+<td>Resource not available at this URI.</td>
+</tr>
+<tr class="row-even"><td>500 SERVER ERROR</td>
+<td>Internal Server Error.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="deleting-resources-with-the-http-delete-methods">
+<h3>Deleting Resources with the HTTP DELETE Methods<a class="headerlink" href="#deleting-resources-with-the-http-delete-methods" title="Permalink to this headline">¶</a></h3>
+<p>When available, resource representations may be deleted via a DELETE to a
+specified resource URL.  This will return a response code as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>204 OK</td>
+<td>Request was successful and resource deleted.</td>
+</tr>
+<tr class="row-odd"><td>401 UNAUTHORIZED</td>
+<td>Credentials were insufficient.</td>
+</tr>
+<tr class="row-even"><td>403 FORBIDDEN</td>
+<td>Rate limit exceeded.</td>
+</tr>
+<tr class="row-odd"><td>404 NOT FOUND</td>
+<td>Resource not available at this URI.</td>
+</tr>
+<tr class="row-even"><td>500 SERVER ERROR</td>
+<td>Internal Server Error.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="errors">
+<h3>Errors<a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h3>
+<p>Errors are returned as JSON objects with the following properties:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>message</td>
+<td>A more descriptive message regarding the exception.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="resource-types">
+<h2>Resource Types<a class="headerlink" href="#resource-types" title="Permalink to this headline">¶</a></h2>
+<p>Two types of representations are returned: instance resources and list
+resources.</p>
+<div class="section" id="instance-resources">
+<h3>Instance Resources<a class="headerlink" href="#instance-resources" title="Permalink to this headline">¶</a></h3>
+<p>Resources can be returned as specific representations of individual objects.
+These can represent a individual voter, district, or other data object in the
+system.  Instance requests are assumed to be called by that object&#8217;s GUID.</p>
+</div>
+<div class="section" id="list-resources">
+<h3>List Resources<a class="headerlink" href="#list-resources" title="Permalink to this headline">¶</a></h3>
+<p>Some resources are lists of other resources, and these results are paginated by
+the API.  Resource list responses include the following pagination information:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>page</td>
+<td>The current page number, zero-indexed.</td>
+</tr>
+<tr class="row-odd"><td>numpages</td>
+<td>The total number of pages.</td>
+</tr>
+<tr class="row-even"><td>total</td>
+<td>The total number of items on the list.</td>
+</tr>
+<tr class="row-odd"><td>start</td>
+<td>The position in the overall list of the first item in the page.</td>
+</tr>
+<tr class="row-even"><td>end</td>
+<td>The position in the overall list of the last item in this page.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dates-and-times">
+<h3>Dates and Times<a class="headerlink" href="#dates-and-times" title="Permalink to this headline">¶</a></h3>
+<p>All times are returned as &#8216;YYYY-MM-DD HH:MM:SS&#8217; in UTC.
+All dates are returned as &#8216;YYYY-MM-DD&#8217; in UTC.</p>
+</div>
+</div>
+<div class="section" id="resource-descriptions">
+<h2>Resource Descriptions<a class="headerlink" href="#resource-descriptions" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="apis.html"><em>APIs</em></a> page has information on the available APIs and resources.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#constructing-urls">Constructing URLs</a><ul>
+<li><a class="reference internal" href="#base-url">Base URL</a></li>
+<li><a class="reference internal" href="#resource-naming">Resource Naming</a></li>
+<li><a class="reference internal" href="#authentication">Authentication</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#request-response-format">Request/Response Format</a><ul>
+<li><a class="reference internal" href="#retrieving-resources-with-the-http-get-method">Retrieving Resources with the HTTP GET Method</a></li>
+<li><a class="reference internal" href="#creating-updating-resources-with-the-http-post-and-put-methods">Creating/Updating Resources with the HTTP POST and PUT Methods</a></li>
+<li><a class="reference internal" href="#deleting-resources-with-the-http-delete-methods">Deleting Resources with the HTTP DELETE Methods</a></li>
+<li><a class="reference internal" href="#errors">Errors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#resource-types">Resource Types</a><ul>
+<li><a class="reference internal" href="#instance-resources">Instance Resources</a></li>
+<li><a class="reference internal" href="#list-resources">List Resources</a></li>
+<li><a class="reference internal" href="#dates-and-times">Dates and Times</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#resource-descriptions">Resource Descriptions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Votizen API Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="apis.html"
+                        title="next chapter">APIs</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="apis.html" title="APIs"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Votizen API Documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, votizen.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

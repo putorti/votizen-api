@@ -1,0 +1,48 @@
+====
+APIs
+====
+
+
+.. _apis--basic-resources:
+
+Basic Resources
+===============
+Our basic APIs allow access to single services or information about specific
+resources.
+
+Location Services
+-----------------
+
+:doc:`geocode`
+    * input: a `CASS-certified postal address`_
+    * output: longitude/latitude coordinates and estimated precision.
+:doc:`district`
+    * input: longitude/latitude coordinates, precision
+    * output: electoral district IDs containing these 
+      coordinates
+
+.. _`CASS-certified postal address`: http://en.wikipedia.org/wiki/Coding_Accuracy_Support_System
+
+Voter Data
+----------
+   
+:doc:`voter_verifier`
+    * input: Name, location, and date of birth
+    * output: whether we were able to match the query to a voter roll record 
+      and, if matched, the Votizen-assigned Voter ID (for use in other Voter 
+      resources).
+      
+:doc:`voter_record`
+    * input: Voter ID
+    * output: party registration and voting history for the requested voter
+
+
+Composite Resources
+===================
+Our composite resources chain together two or more of our 
+:ref:`apis--basic-resources` in commonly-used combinations.  This is convenient, 
+saves you requests, and prevents you from waiting for multiple round-trip 
+requests so you get your answers faster.
+
+:doc:`ballot` 
+    :doc:`geocode` -> :doc:`district` -> collection of in-district races and respective candidates

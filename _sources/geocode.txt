@@ -1,0 +1,84 @@
+=========
+/geocode/
+=========
+
+Requests
+========
+
+Resource URL
+------------
+
+https://api.votizen.com/v1/geocode/
+
+Parameters
+----------
+
+Required
+^^^^^^^^
+===========     =======================================
+**api_key**     Votizen-issued api key for your account
+===========     =======================================
+
+The postal address must be CASS-certified and broken into the fields below:
+
+==========      ===================================
+**street**      Street field of the postal address
+**city**        City field of the postal address
+**state**       State field of the postal address
+**zip**         Zipcode field of the postal address
+==========      ===================================
+
+
+Example Queries
+---------------
+
+* Query for ‘123 Main Street, Arlington, VA 22207’:
+    https://api.votizen.com/v1/geocode/?api_key=abcd1234&street=123+Main+Street&city=Arlington&state=VA&zip=22207
+
+
+Responses
+=========
+
+Response Format
+---------------
+
+Responses are in JSON.
+
+‘id’ fields refer to Votizen’s canonical identification for that record, and can be used for querying other Votizen APIs.
+
+200 Response
+^^^^^^^^^^^^
+::
+
+    {
+       "location": {
+           "lat": 46.527398,
+           "lon": -112.21037,
+           "precision": "point"
+       },
+       "links": [
+            {
+               "rel": "district",
+               "uri": "/v1/district/?lon=-112.21037&lat=46.527398&precision"
+            }
+       ]
+    }
+
+Non-200 Response
+^^^^^^^^^^^^^^^^
+::
+
+    {
+       "message": "string reason"
+    }
+
+HTTP Response Codes
+-------------------
+
+=======     =========================   ===========================================================================================================================================================
+**200**     **OK**                      Request successful
+**400**     **Bad Request**             Your request has missing or invalid sections. The body of the response will have an ‘error’ field that  will provide more information about the problem.
+**401**     **Unauthorized**            Your API key is missing or invalid
+**403**     **Forbidden**               Your rate limit has been exceeded. Contact support@votizen.com to increase your rate limit.
+**500**     **Internal Server Error**   An unexpected error occurred during the processing of your request. These responses should be rare. Please let support@votizen.com know if you receive any.
+=======     =========================   ===========================================================================================================================================================

@@ -1,0 +1,167 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>APIs &mdash; api.votizen.com 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="api.votizen.com 1 documentation" href="index.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="apis">
+<h1>APIs<a class="headerlink" href="#apis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basic-resources">
+<span id="apis-basic-resources"></span><h2>Basic Resources<a class="headerlink" href="#basic-resources" title="Permalink to this headline">¶</a></h2>
+<p>Our basic APIs allow access to single services or information about specific
+resources.</p>
+<div class="section" id="location-services">
+<h3>Location Services<a class="headerlink" href="#location-services" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><a class="reference internal" href="geocode.html"><em>/geocode/</em></a></dt>
+<dd><ul class="first last simple">
+<li>input: a <a class="reference external" href="http://en.wikipedia.org/wiki/Coding_Accuracy_Support_System">CASS-certified postal address</a></li>
+<li>output: longitude/latitude coordinates and estimated precision.</li>
+</ul>
+</dd>
+<dt><a class="reference internal" href="district.html"><em>/district/</em></a></dt>
+<dd><ul class="first last simple">
+<li>input: longitude/latitude coordinates, precision</li>
+<li>output: electoral district IDs containing these
+coordinates</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="voter-data">
+<h3>Voter Data<a class="headerlink" href="#voter-data" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><a class="reference internal" href="voter_verifier.html"><em>/voter/</em></a></dt>
+<dd><ul class="first last simple">
+<li>input: Name, location, and date of birth</li>
+<li>output: whether we were able to match the query to a voter roll record
+and, if matched, the Votizen-assigned Voter ID (for use in other Voter
+resources).</li>
+</ul>
+</dd>
+<dt><a class="reference internal" href="voter_record.html"><em>/voter/record/</em></a></dt>
+<dd><ul class="first last simple">
+<li>input: Voter ID</li>
+<li>output: party registration and voting history for the requested voter</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="composite-resources">
+<h2>Composite Resources<a class="headerlink" href="#composite-resources" title="Permalink to this headline">¶</a></h2>
+<p>Our composite resources chain together two or more of our
+<a class="reference internal" href="#apis-basic-resources"><em>Basic Resources</em></a> in commonly-used combinations.  This is convenient,
+saves you requests, and prevents you from waiting for multiple round-trip
+requests so you get your answers faster.</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="ballot.html"><em>/ballot/</em></a></dt>
+<dd><a class="reference internal" href="geocode.html"><em>/geocode/</em></a> -&gt; <a class="reference internal" href="district.html"><em>/district/</em></a> -&gt; collection of in-district races and respective candidates</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">APIs</a><ul>
+<li><a class="reference internal" href="#basic-resources">Basic Resources</a><ul>
+<li><a class="reference internal" href="#location-services">Location Services</a></li>
+<li><a class="reference internal" href="#voter-data">Voter Data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#composite-resources">Composite Resources</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="previous chapter">Introduction</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/apis.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">api.votizen.com 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, votizen.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

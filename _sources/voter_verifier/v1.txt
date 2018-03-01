@@ -1,0 +1,148 @@
+=======
+/voter/
+=======
+
+.. include:: /voter_verifier/header.rst
+
+
+Requests
+========
+
+Resource URL
+------------
+
+https://api.votizen.com/v1/voter/
+
+Parameters
+----------
+
+Required
+^^^^^^^^
+The only API-enforced required parameter is the api_key, but the more 
+identifying fields provided the more likely it is that we will be able to 
+successfully match your user to a voter record.
+
+===========     =======================================
+**api_key**     Votizen-issued api key for your account
+===========     =======================================
+
+Optional
+^^^^^^^^
+
+Name
+""""
+===============     ============================
+**first_name**      The user’s legal first name
+**middle_name**     The user’s legal middle name
+**last_name**       The user’s legal last name
+===============     ============================
+
+Address
+"""""""
+The postal address must be CASS-certified and broken into the fields below:
+
+==========      ===================================
+**street**      Street field of the postal address
+**city**        City field of the postal address
+**state**       State field of the postal address
+**zip**         Zipcode field of the postal address
+==========      ===================================
+
+Birthday
+""""""""
+=============   ==================================================
+**dob_year**    The user’s birth year
+**dob_month**   The user’s birth month as an integer (1-12)
+**dob_day**     The day of the month of the user’s birthday (1-31)
+=============   ==================================================
+
+
+Example Queries
+---------------
+
+* Query for ‘John Doe Smith’ at ‘123 Main Street, Arlington, VA 22207’ with birthday 7/4/1976:
+    https://api.votizen.com/v1/voter/?api_key=abcd1234&first_name=John&middle_name=Doe&last_name=Smith&street=123+Main+Street&city=Arlington&state=VA&zip=22207&dob_year=1976&dob_month=7&dob_day=4
+* Request for the Voter with Votizen-assigned ID 12345:
+    https://api.votizen.com/v1/voter/12345/?api_key=abcd1234
+
+
+Responses
+=========
+
+Response Format
+---------------
+
+Responses are in JSON.
+
+200 Response - Record
+^^^^^^^^^^^^^^^^^^^^^
+::
+
+    {
+        "id": 12345,
+        "resource_uri": "/v1/voter/12345/",
+        "is_registered_voter": True,
+        "voter_data_uris": {
+            "voter_record_uri": "/v1/voter/12345/record/"
+        }
+    }
+    
++-------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+| **id**                  | Votizen-assigned Voter ID your user was matched to.  You can use this ID to query our other voter resources.                       |
++-------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+| **resource_uri**        | The uri for this record.                                                                                                           |
++-------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+| **is_registered_voter** | Boolean indicator of whether or not we were able to confidently match the parameters provided in your query to a voter roll record |
+|                         |                                                                                                                                    |
+|                         | possible values: True, False                                                                                                       |
++-------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+| **voter_data_uris**     | Links to this Voter's record in our other voter resources.                                                                         |
++-------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+
+200 Response - Search
+^^^^^^^^^^^^^^^^^^^^^
+The search result consists of a 'meta' field (which you can ignore for this 
+resource because we'll only return zero or one voter instances in search 
+results) and an 'objects' field containing the Voter record (if any) that 
+matched your query.
+
+::
+
+    {
+        "meta": {
+            "limit": 20,
+            "next": null,
+            "offset": 0,
+            "previous": null,
+            "total_count": 1,
+        },
+        "objects": [
+            {
+                "id": 12345,
+                "resource_uri": "/v1/voter/12345/",
+                "is_registered_voter": True,
+                "voter_data_uris": {
+                    "voter_record_uri": "/v1/voter/12345/record/"
+                }
+            }
+        ]
+    }
+
+Non-200 Response
+^^^^^^^^^^^^^^^^
+::
+
+    {
+        "message": "string reason",
+    }
+
+HTTP Response Codes
+-------------------
+
+=======     =========================   ===========================================================================================================================================================
+**200**     **OK**                      Request successful
+**400**     **Bad Request**             Your request has missing or invalid sections. The body of the response will have an ‘error’ field that  will provide more information about the problem.
+**401**     **Unauthorized**            Your API key is missing or invalid
+**403**     **Forbidden**               Your rate limit has been exceeded. Contact support@votizen.com to increase your rate limit.
+**500**     **Internal Server Error**   An unexpected error occurred during the processing of your request. These responses should be rare. Please let support@votizen.com know if you receive any.
+=======     =========================   ===========================================================================================================================================================

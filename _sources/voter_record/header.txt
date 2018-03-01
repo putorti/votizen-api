@@ -1,0 +1,7 @@
+Overview
+========
+
+This resource can be queried with a Votizen Voter ID to retrieve that voter's
+record.
+
+You can use a search query on the :doc:`voter_verifier` resource to obtain Voter IDs.
